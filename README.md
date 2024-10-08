@@ -1,8 +1,17 @@
-# React + Vite
+# leche_lanzema_ui_garden - Component Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+This project is a component library for various UI components, built using React, Storybook, and styled-components. The project is dockerized, and you can run it locally using the steps outlined below.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
+
+### Prerequisites
+Ensure you have Docker installed on your system.
+
+### Running the Project Locally
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd leche_lanzema_ui_garden

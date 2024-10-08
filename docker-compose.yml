@@ -1,0 +1,12 @@
+
+services:
+  ui_garden:
+    build:
+      context: .
+    ports:
+      - "8083:8083"
+    container_name: leche_lanzema_coding_assignment12
+    working_dir: /leche_lanzema_ui_garden
+    volumes:
+      - .:/leche_lanzema_ui_garden
+    command: npm run storybook

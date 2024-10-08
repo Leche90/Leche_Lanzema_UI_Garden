@@ -1,26 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// Define HeroImageProps with optional backgroundColor and disabled properties
 type HeroImageProps = {
-  backgroundImage: string;
-  height?: string;
-  children?: React.ReactNode;
+  src: string;
+  alt: string;
+  backgroundColor?: string; // Optional background color
+  disabled?: boolean;       // Optional disabled state
 };
 
-const StyledHero = styled.div<HeroImageProps>`
-  background-image: url(${({ backgroundImage }) => backgroundImage});
-  background-size: cover;
-  background-position: center;
-  height: ${({ height }) => height || '400px'};
+// Styled HeroImage with backgroundColor and disabled support
+const StyledHeroImage = styled.div<{ backgroundColor?: string; disabled?: boolean }>`
+  width: 100%;
+  height: 400px;
+  background-color: ${({ backgroundColor }) => backgroundColor || 'white'};
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 2rem;
+  align-items: center;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
 `;
 
-const HeroImage: React.FC<HeroImageProps> = ({ backgroundImage, height, children }) => {
-  return <StyledHero backgroundImage={backgroundImage} height={height}>{children}</StyledHero>;
+const Img = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+`;
+
+const HeroImage: React.FC<HeroImageProps> = ({ src, alt, backgroundColor, disabled = false }) => {
+  return (
+    <StyledHeroImage backgroundColor={backgroundColor} disabled={disabled}>
+      <Img src={src} alt={alt} />
+    </StyledHeroImage>
+  );
 };
 
 export default HeroImage;

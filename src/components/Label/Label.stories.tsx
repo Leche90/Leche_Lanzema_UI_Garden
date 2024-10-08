@@ -1,32 +1,36 @@
-import React from 'react';
-import { Meta, StoryFn } from '@storybook/react'; // Correct replacements for newer versions of Storybook
+import { Meta, StoryObj } from '@storybook/react'; // CSF3 compliant imports
 import Label from './Label'; // Importing your Label component
-import { LabelProps } from './Label.types'; // Importing the types for props
 
-export default {
+const meta: Meta<typeof Label> = {
   title: 'Components/Label',
   component: Label,
   argTypes: {
-    text: { control: 'text' }, // Control for the label text
-    color: { control: 'color' }, // Control for the label color
+    text: { control: 'text' },        // Control for the label text
+    htmlFor: { control: 'text' },     // Control for the `htmlFor` prop
+    color: { control: 'color' },      // Control for the label color
     disabled: { control: 'boolean' }, // Control for the disabled state
   },
-} as Meta<typeof Label>; // Use Meta instead of ComponentMeta
-
-const Template: StoryFn<LabelProps> = (args) => <Label {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  text: 'Name',
-  htmlFor: 'name-input',
-  color: 'black',
-  disabled: false,
 };
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  text: 'Disabled Label',
-  htmlFor: 'disabled-input',
-  color: 'grey',
-  disabled: true,
+export default meta;
+type Story = StoryObj<typeof Label>;
+
+// Default state for the Label component
+export const Default: Story = {
+  args: {
+    text: "Lanzema's Input",
+    htmlFor: 'name-input',
+    color: 'black',
+    disabled: false,
+  },
+};
+
+// Disabled state for the Label component
+export const Disabled: Story = {
+  args: {
+    text: 'Disabled Label',
+    htmlFor: 'disabled-input',
+    color: 'grey',
+    disabled: true,
+  },
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Styled components for table
-const StyledTable = styled.table`
+const StyledTable = styled.table<{ striped?: boolean; disabled?: boolean }>`
   width: 100%;
   border-collapse: collapse;
   text-align: left;
@@ -12,61 +12,56 @@ const StyledTable = styled.table`
     padding: 8px;
   }
 
+  tr:nth-child(even) {
+    background-color: ${({ striped }) => (striped ? '#f2f2f2' : 'transparent')}; // Striped rows for even rows
+  }
+
   tfoot {
     font-weight: bold;
   }
+
+  ${({ disabled }) => disabled && `
+    pointer-events: none;
+    opacity: 0.5;
+  `}
 `;
 
-// Table Components
+type TableProps = {
+  headers: string[];
+  rows: string[][];
+  footer?: string[];
+  striped?: boolean;
+  disabled?: boolean;
+};
 
-// Table Header Component
-export const TableHeader: React.FC<{ headers: string[] }> = ({ headers }) => (
-  <thead>
-    <tr>
-      {headers.map((header, index) => (
-        <th key={index}>{header}</th>
-      ))}
-    </tr>
-  </thead>
-);
-
-// Table Row Component
-export const TableRow: React.FC<{ row: string[] }> = ({ row }) => (
-  <tr>
-    {row.map((cell, index) => (
-      <TableCell key={index}>{cell}</TableCell>  // Using TableCell component
-    ))}
-  </tr>
-);
-
-// Table Cell Component
-// This is the part you're asking about: the TableCell component.
-export const TableCell: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <td>{children}</td>
-);
-
-// Table Footer Component
-export const TableFooter: React.FC<{ footer: string[] }> = ({ footer }) => (
-  <tfoot>
-    <tr>
-      {footer.map((footItem, index) => (
-        <td key={index}>{footItem}</td>
-      ))}
-    </tr>
-  </tfoot>
-);
-
-// Main Table Component
-const Table: React.FC<{ headers: string[], rows: string[][], footer?: string[] }> = ({ headers, rows, footer }) => {
+const Table: React.FC<TableProps> = ({ headers, rows, footer, striped = false, disabled = false }) => {
   return (
-    <StyledTable>
-      <TableHeader headers={headers} />
+    <StyledTable striped={striped ? true : undefined} disabled={disabled}>
+      <thead>
+        <tr>
+          {headers.map((header, index) => (
+            <th key={index}>{header}</th>
+          ))}
+        </tr>
+      </thead>
       <tbody>
         {rows.map((row, index) => (
-          <TableRow key={index} row={row} />
+          <tr key={index}>
+            {row.map((cell, i) => (
+              <td key={i}>{cell}</td>
+            ))}
+          </tr>
         ))}
       </tbody>
-      {footer && <TableFooter footer={footer} />}
+      {footer && (
+        <tfoot>
+          <tr>
+            {footer.map((footItem, index) => (
+              <td key={index}>{footItem}</td>
+            ))}
+          </tr>
+        </tfoot>
+      )}
     </StyledTable>
   );
 };

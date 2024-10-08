@@ -1,21 +1,47 @@
-// Table.stories.tsx
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import Table from './Table';
+import { TableProps } from './Table';  // Importing the TableProps type from your component
 
-export default {
+const meta: Meta<TableProps> = {
   title: 'Components/Table',
   component: Table,
-} as ComponentMeta<typeof Table>;
+  argTypes: {
+    headers: { control: 'object' },  // Control for headers
+    rows: { control: 'object' },     // Control for rows
+    footer: { control: 'object' },   // Control for footer
+    striped: { control: 'boolean' }, // Control for striped rows
+    disabled: { control: 'boolean' } // Control for disabled state
+  },
+};
 
-const Template: ComponentStory<typeof Table> = (args) => <Table {...args} />;
+export default meta;
 
-export const Default = Template.bind({});
-Default.args = {
-  headers: ['Name', 'Age', 'Country'],
-  rows: [
-    ['John', '30', 'USA'],
-    ['Jane', '25', 'Canada'],
-  ],
-  footer: ['Total', '2', 'Countries']
+type Story = StoryObj<TableProps>;
+
+// Sample data for the table
+const sampleData = [
+  ['Lanzema Leche', 'Full-Stack Web Dev', 'RRC Polytech'],
+  ['Samuel Jackson', 'Graphic Design', 'MITT'],
+];
+
+const headers = ['Name', 'Course', 'School'];
+
+// Default table story
+export const Default: Story = {
+  args: {
+    headers,
+    rows: sampleData,
+    striped: false,
+    disabled: false,
+  },
+};
+
+// Striped and disabled table story
+export const StripedDisabled: Story = {
+  args: {
+    headers,
+    rows: sampleData,
+    striped: true,
+    disabled: true,
+  },
 };
