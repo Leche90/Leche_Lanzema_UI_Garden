@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 8083",
-    "build-storybook": "storybook build",
+    "storybook-custom": "storybook dev -p 8083",
+    "build-storybook": "build-storybook",
     "test": "vitest"
   },
   "dependencies": {
@@ -49,7 +50,7 @@
     "prop-types": "^15.8.1",
     "storybook": "^8.3.5",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.6.2",
+    "typescript": "^5.6.3",
     "vite": "^5.4.1",
     "vitest": "^2.1.2"
   },
